@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="left">
-      <!-- aca va a haber un buscador -->
+      <Search />
     </div>
     <div class="right">
       <h1 class="title">Weather App</h1>
@@ -11,9 +11,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Search from "../search_bar/Search.vue";
 
 export default defineComponent({
   name: "Header",
+  components: {
+    Search,
+  },
 });
 </script>
 
