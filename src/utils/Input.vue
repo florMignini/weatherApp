@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import axios from "axios";
-import { geoLocOptions } from "../apis/geoLoc";
+import { geoLocOptions } from '../apis/geoLoc';
 import { Data } from "../interfaces/dataSearch";
 
 export default {
@@ -19,15 +19,26 @@ export default {
       clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
         this.city = this.text;
-        console.log(this.city);
-        /*    axios
-      .request(geoLocOptions)
+           axios
+      .get(`${import.meta.env.VITE_GEOLOC_API}?minPopulation=1000000&namePrefix=${this.city}`, 
+      geoLocOptions
+      )
       .then(function (response) {
-        console.log(response.data);
+        const {data} = response.data
+        
+             const res = data.map((city:any) =>{
+              return {
+                   value: `${city.latitude} ${city.longitude}`,
+                   label: `${city.name}, ${city.regionCode}`
+               }
+               
+             })
+            
+            console.log(res)
       })
       .catch(function (error) {
         console.error(error);
-      });  */
+      }); 
       }, 600);
     },
   },

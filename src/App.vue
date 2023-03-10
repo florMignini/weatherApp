@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import process from "process";
+
 import Header from "./components/header/Header.vue";
 export default {
   name: "App",
@@ -13,7 +13,7 @@ export default {
     Header,
   },
   mounted() {
-    console.log(import.meta.env.VITE_GEOLOC_API);
+    // console.log(import.meta.env.VITE_GEOLOC_API);
   },
 };
 </script>
