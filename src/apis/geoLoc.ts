@@ -1,7 +1,5 @@
 
-import axios from "axios"
-
-const options = {
+export const geoLocOptions = {
   method: 'GET',
   url: `${import.meta.env.VITE_GEOLOC_API}`,
   headers: {

@@ -1,21 +1,39 @@
 <template>
-  <input
-    class="input-field"
-    :value="modelValue"
-    @input="$emit('update:modelValue', '$event.target.value')"
-  />
+  <input @input="debounceSearch" class="input-field" v-model="text" />
 </template>
 
 <script lang="ts">
+import axios from "axios";
+import { geoLocOptions } from "../apis/geoLoc";
+import { Data } from "../interfaces/dataSearch";
+
 export default {
-  props: {
-    modelValue: {
-      type: [String],
-      default: "Search City",
+  data: (): Data => ({
+    text: "",
+    city: "",
+    debounce: "",
+  }),
+  methods: {
+    // debounce for search method
+    debounceSearch() {
+      clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => {
+        this.city = this.text;
+        console.log(this.city);
+        /*    axios
+      .request(geoLocOptions)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });  */
+      }, 600);
     },
   },
 };
 </script>
+
 <style scoped>
 .input-field {
   width: 20%;
