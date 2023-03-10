@@ -1,16 +1,14 @@
 <template>
-  <input @input="debounceSearch" class="input-field" v-model="text" />
+  <input @keypress="debounceSearch" class="input-field" v-model="text" />
 </template>
 
 <script lang="ts">
-import axios from "axios";
-import { geoLocOptions } from '../apis/geoLoc';
-import { Data } from "../interfaces/dataSearch";
+import { getLocalization } from "../apis/geoLoc";
+import { locationData } from "../interfaces/dataSearch";
 
 export default {
-  data: (): Data => ({
+  data: (): locationData => ({
     text: "",
-    city: "",
     debounce: "",
   }),
   methods: {
@@ -18,28 +16,16 @@ export default {
     debounceSearch() {
       clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
-        this.city = this.text;
-           axios
-      .get(`${import.meta.env.VITE_GEOLOC_API}?minPopulation=1000000&namePrefix=${this.city}`, 
-      geoLocOptions
-      )
-      .then(function (response) {
-        const {data} = response.data
-        
-             const res = data.map((city:any) =>{
-              return {
-                   value: `${city.latitude} ${city.longitude}`,
-                   label: `${city.name}, ${city.regionCode}`
-               }
-               
-             })
-            
-            console.log(res)
-      })
-      .catch(function (error) {
-        console.error(error);
-      }); 
-      }, 600);
+        this.text = this.text;
+        getLocalization(this.text);
+      }, 800);
+    },
+  },
+  watch: {
+    text(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.debounceSearch;
+      }
     },
   },
 };

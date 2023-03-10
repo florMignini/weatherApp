@@ -1,5 +1,7 @@
-export interface Data  {
-    text: string,
-    debounce:any,
-    city: string
+export interface locationData {
+  text: string;
+  debounce: any;
+}
+export interface initialData {
+  firstLocation: any[];
 }

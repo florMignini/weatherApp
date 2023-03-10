@@ -5,15 +5,26 @@
 </template>
 
 <script lang="ts">
-
+import { userLocation } from "./apis/userLocation";
 import Header from "./components/header/Header.vue";
+import { initialData } from "./interfaces/dataSearch";
 export default {
   name: "App",
   components: {
     Header,
   },
-  mounted() {
-    // console.log(import.meta.env.VITE_GEOLOC_API);
+  data: (): initialData => ({
+    firstLocation: [],
+  }),
+  methods: {
+    async fetchLocation() {
+      const res = await userLocation();
+      return res;
+    },
+  },
+  //here I bring the exact localization of the person who request the forecast
+  async created() {
+    this.firstLocation = await this.fetchLocation();
   },
 };
 </script>
