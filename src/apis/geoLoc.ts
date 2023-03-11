@@ -1,4 +1,5 @@
 import axios from "axios";
+import { locationStore } from "../store/locationStore";
 export const geoLocOptions = {
   headers: {
     "X-RapidAPI-Key": `${import.meta.env.VITE_API_KEY}`,
@@ -7,6 +8,7 @@ export const geoLocOptions = {
 };
 
 export const getLocalization = async (inputValue: string) => {
+  const localizationStore = locationStore();
   axios
     .get(
       `${
@@ -23,6 +25,7 @@ export const getLocalization = async (inputValue: string) => {
           label: `${city.name}, ${city.regionCode}`,
         };
       });
+      localizationStore.getlocationInfo(res);
     })
     .catch(function (error) {
       console.error(error);

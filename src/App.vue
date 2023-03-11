@@ -5,26 +5,31 @@
 </template>
 
 <script lang="ts">
+import { storeToRefs } from "pinia";
 import { userLocation } from "./apis/userLocation";
 import Header from "./components/header/Header.vue";
 import { initialData } from "./interfaces/dataSearch";
+import { locationStore } from "./store/locationStore";
 export default {
   name: "App",
   components: {
     Header,
   },
-  data: (): initialData => ({
-    firstLocation: [],
-  }),
+  setup() {
+    const localizationStore = locationStore();
+    return { localizationStore };
+  },
   methods: {
-    async fetchLocation() {
-      const res = await userLocation();
-      return res;
+    async bringLocation() {
+      const response = await userLocation();
+      this.localizationStore.getlocationInfo(response);
+
+      console.log(this.localizationStore.locations);
     },
   },
   //here I bring the exact localization of the person who request the forecast
-  async created() {
-    this.firstLocation = await this.fetchLocation();
+  created() {
+    this.bringLocation();
   },
 };
 </script>

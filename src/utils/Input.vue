@@ -12,8 +12,8 @@ export default {
     debounce: "",
   }),
   methods: {
-    // debounce for search method
     debounceSearch() {
+      // debounce for search method
       clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
         this.text = this.text;

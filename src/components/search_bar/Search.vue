@@ -1,7 +1,7 @@
 <template>
   <div class="search-container">
     <div class="icon-side">
-      <font-awesome-icon icon="fa-duotone fa-magnifying-glass" />
+      <!-- aca va un icon the lupita -->
     </div>
     <div class="input-side">
       <Input />
